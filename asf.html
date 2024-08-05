@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>건강 & 라이프스타일 예측 앱</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      .avatar-section,
+      .recommendations,
+      .projection-chart {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      .avatar-section {
+        flex: 1;
+        text-align: center;
+      }
+      .recommendations {
+        flex: 1;
+        margin-left: 20px;
+      }
+      .projections {
+        display: flex;
+        justify-content: space-between;
+      }
+      .projection-chart {
+        width: 48%;
+      }
+      #user-avatar {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        background-color: #e0e0e0;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 100px;
+        color: #555;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      h1,
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>건강 & 라이프스타일 예측 앱</h1>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="avatar-section">
+          <h2>당신의 아바타</h2>
+          <div id="user-avatar">👤</div>
+          <p>나이: 35세 | 키: 170cm | 체중: 65kg</p>
+        </section>
+
+        <section class="recommendations">
+          <h2>맞춤 추천</h2>
+          <div class="to-do-list">
+            <h3>실천할 것</h3>
+            <ul id="to-do-items">
+              <li>매일 30분 이상 걷기</li>
+              <li>과일과 채소 섭취량 늘리기</li>
+              <li>충분한 수면 취하기 (7-8시간)</li>
+              <li>스트레스 관리 기법 배우기</li>
+            </ul>
+          </div>
+          <div class="not-to-do-list">
+            <h3>피해야 할 것</h3>
+            <ul id="not-to-do-items">
+              <li>과도한 음주</li>
+              <li>흡연</li>
+              <li>장시간 앉아있기</li>
+              <li>불규칙한 식사</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div class="projections">
+        <div class="projection-chart">
+          <h3>기대 수명 예측</h3>
+          <canvas id="lifespan-chart"></canvas>
+        </div>
+        <div class="projection-chart">
+          <h3>신체 상태 예측</h3>
+          <canvas id="condition-chart"></canvas>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 건강 & 라이프스타일 예측 앱. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // 기대 수명 차트
+      var lifespanCtx = document
+        .getElementById("lifespan-chart")
+        .getContext("2d");
+      var lifespanChart = new Chart(lifespanCtx, {
+        type: "bar",
+        data: {
+          labels: ["현재 생활 유지", "추천사항 실천"],
+          datasets: [
+            {
+              label: "기대 수명 (년)",
+              data: [75, 85],
+              backgroundColor: [
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+              ],
+              borderColor: ["rgba(255, 99, 132, 1)", "rgba(75, 192, 192, 1)"],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // 신체 상태 차트
+      var conditionCtx = document
+        .getElementById("condition-chart")
+        .getContext("2d");
+      var conditionChart = new Chart(conditionCtx, {
+        type: "line",
+        data: {
+          labels: ["현재", "5년 후", "10년 후", "15년 후", "20년 후"],
+          datasets: [
+            {
+              label: "현재 생활 유지",
+              data: [80, 75, 70, 60, 50],
+              borderColor: "rgba(255, 99, 132, 1)",
+              fill: false,
+            },
+            {
+              label: "추천사항 실천",
+              data: [80, 85, 88, 90, 92],
+              borderColor: "rgba(75, 192, 192, 1)",
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
